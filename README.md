@@ -68,13 +68,14 @@ El frontend consulta Supabase con la anon key pública configurada en `.env.loca
 
 ## Carga de datos sin Python
 
-Si no podés ejecutar Python en tu computadora, podés cargar datos pegando SQL en **Supabase → SQL Editor**. El repo incluye un seed de ejemplo en:
+Si no podés ejecutar Python en tu computadora, podés cargar datos pegando SQL en **Supabase → SQL Editor**. El repo incluye dos opciones:
 
 ```text
 supabase/seeds/001_sample_accessions.sql
+supabase/seeds/002_import_google_sheet_accessions.sql
 ```
 
-Ese archivo crea accesiones demo para probar el frontend. Para generar un SQL con **tus datos reales**, hace falta contar con la planilla Excel/CSV o con las filas a cargar.
+`001_sample_accessions.sql` crea accesiones demo para probar el frontend. `002_import_google_sheet_accessions.sql` intenta importar directamente la Google Sheet compartida usando la extensión `http` de Supabase, sin ejecutar nada localmente. Primero ejecutá las migraciones y después este seed real desde el SQL Editor.
 
 ## Importación de datos
 

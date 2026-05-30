@@ -123,9 +123,10 @@ Si no podés correr Python localmente, usá el SQL Editor de Supabase:
 1. Abrí **Supabase → SQL Editor**.
 2. Ejecutá primero `supabase/migrations/001_initial_schema.sql`.
 3. Ejecutá `supabase/migrations/002_refresh_catalog_view.sql` si tu vista no tiene `collector`.
-4. Pegá y ejecutá `supabase/seeds/001_sample_accessions.sql`.
+4. Para datos demo, pegá y ejecutá `supabase/seeds/001_sample_accessions.sql`.
+5. Para importar la Google Sheet compartida, pegá y ejecutá `supabase/seeds/002_import_google_sheet_accessions.sql`.
 
-Ese seed carga accesiones de ejemplo para que el catálogo funcione sin depender del script Python. Si necesitás cargar **todos tus datos reales**, hay que generar un seed igual pero con tus filas reales; para eso hace falta la planilla Excel/CSV o que pegues los registros.
+El seed `002_import_google_sheet_accessions.sql` usa la extensión `http` de Supabase para leer la Google Sheet con Google Visualization API y poblar `species`, `accessions` e `inventory`. Si Supabase devuelve un error de permisos o de HTTP, verificá que la hoja siga compartida como pública o que la extensión `http` esté habilitada en **Database → Extensions**.
 
 ## Errores comunes
 
