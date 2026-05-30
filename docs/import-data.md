@@ -114,3 +114,37 @@ select * from accession_catalog limit 20;
 ```
 
 Después, configurá el frontend con `NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_ANON_KEY` en `.env.local` y abrí `/catalog`.
+
+## Errores comunes
+
+### `ModuleNotFoundError: No module named 'supabase'`
+
+Significa que las dependencias no quedaron instaladas en el entorno virtual. En tu ejemplo aparece `^C` y `ERROR: Operation cancelled by user`, o sea que `pip install -r scripts/requirements.txt` fue cancelado antes de terminar.
+
+Solución:
+
+```bash
+source .venv/bin/activate
+pip install -r scripts/requirements.txt
+```
+
+Cuando termine sin errores, recién ejecutá el importador.
+
+### No usar los valores de ejemplo
+
+Estos valores son placeholders y no sirven para importar:
+
+```bash
+SUPABASE_URL="https://tu-proyecto.supabase.co"
+SUPABASE_SERVICE_ROLE_KEY="tu-service-role-key"
+```
+
+Tenés que reemplazarlos por los valores reales de **Supabase → Project Settings → API**.
+
+### `Input file not found: data/accessions.xlsx`
+
+El archivo debe existir en esa ruta. Si tu planilla está en otra ubicación, pasá esa ruta:
+
+```bash
+python scripts/import_excel.py /ruta/a/tu/planilla.xlsx
+```

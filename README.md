@@ -81,4 +81,6 @@ SUPABASE_SERVICE_ROLE_KEY=your-service-role-key \
 python scripts/import_excel.py data/accessions.xlsx
 ```
 
-La guía completa está en [`docs/import-data.md`](docs/import-data.md), incluyendo columnas esperadas, cómo obtener credenciales, cómo importar desde CSV/Excel y cómo verificar la carga en Supabase.
+Reemplazá `https://your-project.supabase.co` y `your-service-role-key` por los valores reales de **Supabase → Project Settings → API**. Si `pip install` se cancela o falla, el script no va a encontrar el paquete `supabase`; volvé a ejecutar `pip install -r scripts/requirements.txt` dentro del entorno virtual.
+
+La guía completa está en [`docs/import-data.md`](docs/import-data.md), incluyendo columnas esperadas, cómo obtener credenciales, cómo importar desde CSV/Excel, errores comunes y cómo verificar la carga en Supabase.

@@ -9,14 +9,46 @@ common labels such as "codigo", "accession_code", "especie", "scientific_name",
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import os
 import re
 from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 
+REQUIRED_PACKAGES = {
+    "pandas": "pandas",
+    "openpyxl": "openpyxl",
+    "supabase": "supabase",
+}
+
+
+def ensure_dependencies() -> None:
+    missing = [
+        package
+        for module, package in REQUIRED_PACKAGES.items()
+        if importlib.util.find_spec(module) is None
+    ]
+    if missing:
+        packages = ", ".join(missing)
+        raise SystemExit(
+            "Missing Python dependencies: "
+            f"{packages}. Activate your virtual environment and run: "
+            "pip install -r scripts/requirements.txt"
+        )
+
+
+ensure_dependencies()
+
 import pandas as pd
 from supabase import Client, create_client
+
+PLACEHOLDER_VALUES = {
+    "https://tu-proyecto.supabase.co",
+    "https://your-project.supabase.co",
+    "tu-service-role-key",
+    "your-service-role-key",
+}
 
 COLUMN_ALIASES = {
     "accession_code": {
@@ -185,10 +217,20 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def main() -> None:
-    args = parse_args()
+def validate_args(args: argparse.Namespace) -> None:
     if not args.supabase_url or not args.service_role_key:
         raise SystemExit("SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are required.")
+    if args.supabase_url in PLACEHOLDER_VALUES or args.service_role_key in PLACEHOLDER_VALUES:
+        raise SystemExit(
+            "Replace the example Supabase URL/key with your real values from Supabase Project Settings > API."
+        )
+    if not args.input_file.exists():
+        raise SystemExit(f"Input file not found: {args.input_file}")
+
+
+def main() -> None:
+    args = parse_args()
+    validate_args(args)
 
     frame = canonical_columns(read_input(args.input_file, args.sheet_name))
     require_columns(frame)
