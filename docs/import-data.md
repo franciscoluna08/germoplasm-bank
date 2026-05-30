@@ -115,6 +115,18 @@ select * from accession_catalog limit 20;
 
 Después, configurá el frontend con `NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_ANON_KEY` en `.env.local` y abrí `/catalog`.
 
+
+## Alternativa sin Python: cargar un SQL en Supabase
+
+Si no podés correr Python localmente, usá el SQL Editor de Supabase:
+
+1. Abrí **Supabase → SQL Editor**.
+2. Ejecutá primero `supabase/migrations/001_initial_schema.sql`.
+3. Ejecutá `supabase/migrations/002_refresh_catalog_view.sql` si tu vista no tiene `collector`.
+4. Pegá y ejecutá `supabase/seeds/001_sample_accessions.sql`.
+
+Ese seed carga accesiones de ejemplo para que el catálogo funcione sin depender del script Python. Si necesitás cargar **todos tus datos reales**, hay que generar un seed igual pero con tus filas reales; para eso hace falta la planilla Excel/CSV o que pegues los registros.
+
 ## Errores comunes
 
 ### `ModuleNotFoundError: No module named 'supabase'`

@@ -65,6 +65,17 @@ El frontend consulta Supabase con la anon key pública configurada en `.env.loca
 - `/accessions/[id]`: detalle completo de la accesión seleccionada.
 
 
+
+## Carga de datos sin Python
+
+Si no podés ejecutar Python en tu computadora, podés cargar datos pegando SQL en **Supabase → SQL Editor**. El repo incluye un seed de ejemplo en:
+
+```text
+supabase/seeds/001_sample_accessions.sql
+```
+
+Ese archivo crea accesiones demo para probar el frontend. Para generar un SQL con **tus datos reales**, hace falta contar con la planilla Excel/CSV o con las filas a cargar.
+
 ## Importación de datos
 
 El script `scripts/import_excel.py` **se ejecuta localmente**, no dentro de Supabase. Lee una planilla Excel/CSV y carga datos en Supabase usando la API REST con la `service_role key`.
