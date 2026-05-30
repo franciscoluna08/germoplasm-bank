@@ -7,12 +7,16 @@ export function SearchForm({ filters }: { filters: CatalogFilters }) {
         Buscar accesiones
       </label>
       <div className="mt-3 flex flex-col gap-3 sm:flex-row">
+        <input type="hidden" name="species" value={filters.species ?? ""} />
+        <input type="hidden" name="country" value={filters.country ?? ""} />
+        <input type="hidden" name="province" value={filters.province ?? ""} />
+        <input type="hidden" name="available" value={filters.available ?? ""} />
         <input
           id="search"
           name="search"
           type="search"
           defaultValue={filters.search}
-          placeholder="Código, especie, colector, país o provincia"
+          placeholder="Ej: PAS-001, Paspalum, colector, Argentina, Corrientes"
           className="min-h-12 flex-1 rounded-2xl border border-slate-200 px-4 text-base outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
         />
         <button
@@ -23,7 +27,7 @@ export function SearchForm({ filters }: { filters: CatalogFilters }) {
         </button>
       </div>
       <p className="mt-3 text-sm text-slate-500">
-        Podés buscar por código de accesión, especie, colector, país o provincia.
+        La búsqueda consulta código de accesión, especie, colector, país y provincia.
       </p>
     </form>
   );

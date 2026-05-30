@@ -76,3 +76,7 @@ select
 from accessions a
 join species s on s.id = a.species_id
 left join inventory i on i.accession_id = a.id;
+
+
+grant select on accession_catalog to anon, authenticated;
+grant select on species, accessions, inventory to anon, authenticated;

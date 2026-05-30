@@ -19,11 +19,11 @@ export default function Home() {
             Catálogo público de accesiones
           </p>
           <h1 className="text-4xl font-bold tracking-tight text-slate-950 sm:text-6xl">
-            Banco de germoplasma de <span className="text-emerald-700">Paspalum</span>
+            Consultá el banco de germoplasma de <span className="text-emerald-700">Paspalum</span>
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-            Consultá accesiones, procedencia y disponibilidad de semillas desde una interfaz simple
-            conectada a Supabase.
+            Buscá accesiones por código, especie, colector o procedencia. El frontend consulta directamente
+            las tablas y vistas publicadas por Supabase.
           </p>
           <div className="mt-8">
             <SearchForm filters={{}} />
@@ -31,23 +31,29 @@ export default function Home() {
         </div>
 
         <div className="rounded-[2rem] border border-emerald-100 bg-white p-8 shadow-sm">
-          <h2 className="text-xl font-bold text-slate-900">MVP de consulta</h2>
+          <h2 className="text-xl font-bold text-slate-900">Qué podés consultar</h2>
           <dl className="mt-6 grid gap-5">
-            <div className="rounded-2xl bg-slate-50 p-5">
-              <dt className="font-semibold text-slate-900">Sin autenticación</dt>
-              <dd className="mt-1 text-sm text-slate-600">Consulta pública orientada a investigadores.</dd>
-            </div>
-            <div className="rounded-2xl bg-slate-50 p-5">
-              <dt className="font-semibold text-slate-900">Filtros del catálogo</dt>
-              <dd className="mt-1 text-sm text-slate-600">Especie, país, provincia y disponibilidad.</dd>
-            </div>
-            <div className="rounded-2xl bg-slate-50 p-5">
-              <dt className="font-semibold text-slate-900">Detalle de accesión</dt>
-              <dd className="mt-1 text-sm text-slate-600">Datos de colecta, ubicación, inventario y observaciones.</dd>
-            </div>
+            <InfoItem title="Catálogo filtrable" description="Filtrá por especie, país, provincia y disponibilidad." />
+            <InfoItem title="Disponibilidad" description="Revisá cantidad de semillas y estado disponible/no disponible." />
+            <InfoItem title="Detalle completo" description="Accedé a colecta, localidad, coordenadas y observaciones." />
           </dl>
+          <Link
+            href="/catalog"
+            className="mt-6 inline-flex w-full justify-center rounded-2xl bg-slate-950 px-5 py-3 font-semibold text-white transition hover:bg-slate-800"
+          >
+            Abrir catálogo
+          </Link>
         </div>
       </section>
     </main>
+  );
+}
+
+function InfoItem({ title, description }: { title: string; description: string }) {
+  return (
+    <div className="rounded-2xl bg-slate-50 p-5">
+      <dt className="font-semibold text-slate-900">{title}</dt>
+      <dd className="mt-1 text-sm text-slate-600">{description}</dd>
+    </div>
   );
 }

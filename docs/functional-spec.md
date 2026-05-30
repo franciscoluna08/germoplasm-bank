@@ -83,4 +83,4 @@ El modelo inicial se define en `supabase/migrations/001_initial_schema.sql` e in
 - `species`: especies con nombre científico único.
 - `accessions`: datos de colecta y procedencia de cada accesión.
 - `inventory`: cantidad de semillas, disponibilidad y ubicación de almacenamiento.
-- `accession_catalog`: vista para consultas del catálogo.
+- `accession_catalog`: vista para consultas del catálogo, incluyendo `collector` para soportar el buscador general.

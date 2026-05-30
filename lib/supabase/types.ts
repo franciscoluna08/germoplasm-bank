@@ -37,4 +37,20 @@ export type CatalogFilters = {
   country?: string;
   province?: string;
   available?: string;
+  page?: string;
+};
+
+export type CatalogFilterOptions = {
+  species: string[];
+  countries: string[];
+  provinces: string[];
+};
+
+export type CatalogQueryResult = {
+  data: AccessionCatalogRow[];
+  count: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
+  error?: string;
 };

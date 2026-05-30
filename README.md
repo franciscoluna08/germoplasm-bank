@@ -47,30 +47,38 @@ MVP de consulta pública para un banco de germoplasma de especies del género _P
 
 ## Base de datos
 
-La migración inicial está en:
+Las migraciones están en:
 
 ```text
 supabase/migrations/001_initial_schema.sql
+supabase/migrations/002_refresh_catalog_view.sql
 ```
 
-Aplicala en Supabase antes de usar el catálogo.
+Aplicá `001_initial_schema.sql` para crear tablas, índices y la vista pública `accession_catalog`. Si ya creaste la base con una versión anterior de la vista, aplicá también `002_refresh_catalog_view.sql` para exponer el campo `collector`, necesario para el buscador general.
+
+## Frontend de consultas
+
+El frontend consulta Supabase con la anon key pública configurada en `.env.local`:
+
+- `/`: buscador principal.
+- `/catalog`: tabla paginada, filtros por especie/país/provincia/disponibilidad y sugerencias de filtros tomadas de Supabase.
+- `/accessions/[id]`: detalle completo de la accesión seleccionada.
+
 
 ## Importación de datos
 
-El script `scripts/import_excel.py` importa una planilla Excel o CSV y pobla las tablas `species`, `accessions` e `inventory`.
+El script `scripts/import_excel.py` **se ejecuta localmente**, no dentro de Supabase. Lee una planilla Excel/CSV y carga datos en Supabase usando la API REST con la `service_role key`.
 
-Ejemplo:
-
-```bash
-python scripts/import_excel.py data/accessions.xlsx \
-  --supabase-url https://your-project.supabase.co \
-  --service-role-key your-service-role-key
-```
-
-También puede leer las credenciales desde variables de entorno:
+Pasos rápidos:
 
 ```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r scripts/requirements.txt
+
 SUPABASE_URL=https://your-project.supabase.co \
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key \
 python scripts/import_excel.py data/accessions.xlsx
 ```
+
+La guía completa está en [`docs/import-data.md`](docs/import-data.md), incluyendo columnas esperadas, cómo obtener credenciales, cómo importar desde CSV/Excel y cómo verificar la carga en Supabase.
