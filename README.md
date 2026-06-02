@@ -18,6 +18,30 @@ MVP de consulta pública para un banco de germoplasma de especies del género _P
 - Tailwind CSS
 - Supabase PostgreSQL
 
+
+## Guía rápida para GitHub Codespaces
+
+Si no sos programador y querés probar los cambios en Codespaces, seguí la guía paso a paso en [`docs/codespaces-guide.md`](docs/codespaces-guide.md).
+
+Para evitar el error `npm error enoent` de tu captura, pegá este bloque completo en la terminal. El bloque busca automáticamente la carpeta que tiene `package.json`, entra ahí, instala y levanta la app:
+
+```bash
+PROJECT_DIR=$(find /workspaces /workspace -maxdepth 3 -name package.json -not -path "*/node_modules/*" -printf '%h\n' 2>/dev/null | head -n 1)
+if [ -z "$PROJECT_DIR" ]; then
+  echo "No encontré package.json. Abrí el Codespace del repo donde está la app Next.js o avisame con una captura."
+else
+  cd "$PROJECT_DIR"
+  echo "Estoy usando esta carpeta: $(pwd)"
+  git pull
+  npm install
+  npm run dev
+fi
+```
+
+La app se abre normalmente en el puerto **3000**. Si Codespaces te pregunta, elegí **Open in Browser**. Si el puerto 3000 está ocupado, frená con `Ctrl + C`, pegá `npm run dev:3001` y abrí el puerto **3001** desde la pestaña **Ports**. No pegues `}PORT=3001`; esa llave `}` fue el error que se ve en la captura.
+
+No hace falta pegar un `index.html` completo: este proyecto usa Next.js y la home se cambia en `app/page.tsx`, el buscador en `components/SearchForm.tsx` y los estilos globales en `app/globals.css`.
+
 ## Configuración local
 
 1. Instalar dependencias:
